@@ -1,0 +1,26 @@
+public class CoinApp {
+
+	public static void main(String[] args) {
+		
+		Coin coin1 = new Coin();
+		int t = 0;
+		int h = 0;
+		
+		System.out.print("Initial side up: " + 
+		coin1.getSideUp() + ".\n");
+		
+		for (int count = 0; count < 20; count++) {
+			coin1.toss();
+			System.out.println(coin1.getSideUp());
+			String str = coin1.getSideUp();
+			if (str == "heads")
+				h++;
+			else 
+				t++;
+			
+		}
+
+		System.out.println("Heads was side up " + h + " times.");
+		System.out.println("Tails was side up " + t + " times.");
+	}
+}
