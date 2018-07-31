@@ -1,0 +1,86 @@
+import java.util.Scanner;
+
+public class Players {
+	
+	int t = 0;
+	int h = 0;
+	private String player;
+	private char guess;
+	private int points = 0;
+	Coin coin1 = new Coin();
+	
+	public static void main(String[] args) {
+		
+		System.out.println("The Coin Game: Take turns flipping a coin.\nEach player will guess if " +
+		"the coin will land headsup or tailsup.\nOne point for each correct guess, minus one point " +
+		"for each incorrect guess.\nThe first player to five points wins.");
+		System.out.println("");
+		
+		int t = 0;
+		int h = 0;
+		String player1;
+		String player2;
+		char guess1;
+		char guess2;
+		int points1 = 0;
+		int points2 = 0;
+		Coin coin1 = new Coin();
+		
+		Scanner keyboard = new Scanner(System.in);
+		
+		System.out.print("Enter name of Player 1: ");
+		player1 = keyboard.nextLine();
+		System.out.print("Enter name of Player 2: ");
+		player2 = keyboard.nextLine();
+		
+	while (points1 < 3 && points2 < 3) {
+		
+		coin1.toss();
+		String str = coin1.getSideUp();
+		if (str == "heads")
+			h++;
+		else 
+			t++;
+		
+		points1 = getGuess(player1, str, points1);
+
+		points2 = getGuess(player2, str, points2);
+	
+	}
+	
+	System.out.println("Heads was side up " + h + " times.");
+	System.out.println("Tails was side up " + t + " times.");
+	if (points1 >= 5) 
+		System.out.print(player1 + " got to 3 points first. You win!");
+	else
+		System.out.print(player2 + " got to 3 points first. You win!");
+}
+	private static int getGuess(String player, String side, int points) {
+		// System.out.println(">>>>>" + side);
+		Scanner keyboard = new Scanner(System.in);
+		char guess;
+		System.out.println("Please enter H or T for " + player);
+		guess = keyboard.next().charAt(0);
+		
+		while (guess != 'H' && guess != 'h' && guess != 'T' && guess != 't') {
+			System.out.println("Error! Please enter H or T for " + player);
+			guess = keyboard.next().charAt(0);
+		}
+		
+		if (guess == 'H' || guess == 'h' && side == "heads") {
+			points++;
+			System.out.println("+1 for " + player + "!");
+		} else if (guess == 'T' || guess == 't' && side == "tails") {
+			points++;
+			System.out.println("+1 for " + player + "!"); 
+		} else {
+			points--;
+			System.out.println("-1 for " + player + ".");
+		}
+		if (points < 0) {
+			points = 0;
+		}
+		System.out.println(player + "'s points: " + points);
+		return points;
+	}
+}
